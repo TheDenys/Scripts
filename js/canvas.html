@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  
+  <script lang="javascript">
+    var canvas;
+    var ctx;
+    var canvasWidth;
+    var canvasHeight;
+    var id;
+
+    function InitTests() {
+      canvas = document.getElementById('canvas');
+      ctx = canvas.getContext('2d');
+      canvasWidth = canvas.width;
+      canvasHeight = canvas.height;
+      id = ctx.getImageData(0, 0, 1, 1);
+      //alert("test")
+    }
+
+    function PutImageTest() {
+      var r = 250;
+      var g = 150;
+      var b = 0;
+      id.data[0] = r;
+      id.data[1] = g;
+      id.data[2] = b;
+      id.data[3] = 255;
+      var cycles = document.getElementById('cycles');
+      ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+      ctx.strokeStyle = 'rgb(' + r + ',' + g + ',' + b + ')';
+
+      for (var x = 0; x < cycles.value; ++x) {
+        var y = 10;
+        ctx.putImageData(id, x, y);
+      }
+    }
+    
+    
+  </script>
+  
+<body onload="InitTests()" >
+  
+    <div>
+    Other:<input type="number" value = 800 id = "cycles" class="input50"/>
+    </div>
+  <div>
+  <button onclick="PutImageTest()">draw</button>
+  </div>
+  <p/>
+  <canvas id="canvas" width="1200" height="800" style="border:1px solid #AAAABA;">
+</body>
+
+</html>
